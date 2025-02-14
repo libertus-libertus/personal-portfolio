@@ -50,7 +50,7 @@
 
                                         <div class="mb-3">
                                             <input type="email" name="email" class="form-control form-control-lg" placeholder="Email"
-                                                aria-label="Email">
+                                                aria-label="Email" autofocus>
                                             @error('email')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
