@@ -27,6 +27,18 @@ class User extends Authenticatable
         'password',
     ];
 
+    // Relasi ke Experience (One-to-Many)
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    // Relasi ke Project (One-to-Many)
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

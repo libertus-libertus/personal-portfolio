@@ -15,12 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('title');
-            $table->text('description');
-            $table->string('role');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('employment_type');
-            $table->string('tech_stack');
+            $table->string('role')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('description')->nullable();
             $table->string('github_link')->nullable();
             $table->string('live_link')->nullable();
             $table->timestamps();

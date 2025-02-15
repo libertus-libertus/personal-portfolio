@@ -9,9 +9,26 @@ class Skill extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
         'name',
-        'type',
+        'category_id',
         'icon'
     ];
+
+    // Relasi ke Skill Category (Many-to-Many)
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_skills');
+    }
+
+    // Relasi ke Project (Many-to-Many)
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'project_skills');
+    }
+
+    // Relasi ke Experience (Many-to-Many)
+    public function experiences()
+    {
+        return $this->belongsToMany(Experience::class, 'experience_skills');
+    }
 }
