@@ -1,157 +1,80 @@
-<!--
-=========================================================
-* Argon Dashboard 3 - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="backend/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=100&id=epZz7YMDqqwA&format=png&color=000000">
-    <title> @yield('title') &mdash; My Portofolio </title>
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <!-- Nucleo Icons -->
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- CSS Files -->
-    <link id="pagestyle" href="backend/assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@yield('title') &mdash; Libertus</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{{ asset('BE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('BE/bower_components/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('BE/bower_components/Ionicons/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('BE/bower_components/jvectormap/jquery-jvectormap.css') }}">
+    <link rel="stylesheet" href="{{ asset('BE/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('BE/dist/css/skins/_all-skins.min.css') }}">
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @stack('css')
 </head>
 
-<body class="g-sidenav-show bg-gray-100">
-    <div class="min-height-300 bg-dark position-absolute w-100"></div>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
 
-    <!-- Sidebar -->
-    @include('layouts.sidebar')
-    <!-- ./Sidebar -->
+        <header class="main-header">
+            @include('layouts.navbar')
+        </header>
 
-    <main class="main-content position-relative border-radius-lg ">
-        <!-- Navbar -->
-        @include('layouts.navigation')
-        <!-- ./Navbar -->
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            @include('layouts.sidebar')
+            <!-- /.sidebar -->
+        </aside>
 
-        <!-- Main Content -->
-        @yield('content')
-        <!-- ./Main-content -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    @yield('subtitle')
+                </h1>
+            </section>
 
-    </main>
+            <!-- Main content -->
+            @yield('content')
+        </div>
 
-    <!--   Core JS Files   -->
-    <script src="backend/assets/js/core/popper.min.js"></script>
-    <script src="backend/assets/js/core/bootstrap.min.js"></script>
-    <script src="backend/assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="backend/assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="backend/assets/js/plugins/chartjs.min.js"></script>
-    <script>
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
+        <!-- /.Footer -->
+        @include('layouts.footer')
+        <!-- /.footer -->
 
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+    </div>
 
-        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-        new Chart(ctx1, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#5e72e4",
-                    backgroundColor: gradientStroke1,
-                    borderWidth: 3,
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#fbfbfb',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#ccc',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-    </script>
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="backend/assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+    <!-- jQuery 3 -->
+    <script src="{{ asset('BE/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="{{ asset('BE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('BE/bower_components/fastclick/lib/fastclick.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('BE/dist/js/adminlte.min.js') }}"></script>
+    <!-- Sparkline -->
+    <script src="{{ asset('BE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
+    <!-- jvectormap  -->
+    <script src="{{ asset('BE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('BE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <!-- SlimScroll -->
+    <script src="{{ asset('BE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <!-- ChartJS -->
+    <script src="{{ asset('BE/bower_components/Chart.js/Chart.js') }}"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="{{ asset('BE/dist/js/pages/dashboard2.js') }}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{ asset('BE/dist/js/demo.js') }}"></script>
+    @stack('js')
 </body>
 
 </html>

@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
+use App\Models\CategorySkill;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +34,9 @@ Route::middleware('auth')->group(function () {
 
     // route-resource
     Route::resource('/skill', SkillController::class);
+
+    Route::get('/category/print-pdf', [CategoryController::class, 'printPDF'])->name('category.printPDF');
+    Route::resource('/category', CategoryController::class);
 });
 
 require __DIR__.'/auth.php';
