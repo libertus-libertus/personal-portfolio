@@ -24,7 +24,7 @@
             </a>
         </li>
         <li class="{{ request()->is('skill') ? 'active' : '' }}">
-            <a href="#">
+            <a href="{{ route('skill.index') }}">
                 <i class="fa fa-lightbulb-o"></i>
                 <span>Keahlian (Skills)</span>
             </a>
