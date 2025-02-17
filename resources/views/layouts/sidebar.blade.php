@@ -2,7 +2,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="BE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <img src="https://img.icons8.com/?size=100&id=UG5EO81XNkPs&format=png&color=000000" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
             <p>{{ Auth::user()->name }}</p>
@@ -30,7 +30,7 @@
             </a>
         </li>
         <li class="{{ request()->is('project') ? 'active' : '' }}">
-            <a href="#">
+            <a href="{{ route('project.index') }}">
                 <i class="fa fa-briefcase"></i>
                 <span>Portfolio Project</span>
             </a>

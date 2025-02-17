@@ -14,6 +14,7 @@ class Project extends Model
         'title',
         'description',
         'role',
+        'image',
         'start_date',
         'end_date',
         'employment_type',
