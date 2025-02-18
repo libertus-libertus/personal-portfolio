@@ -1,14 +1,4 @@
 <section class="sidebar">
-    <!-- Sidebar user panel -->
-    <div class="user-panel">
-        <div class="pull-left image">
-            <img src="https://img.icons8.com/?size=100&id=UG5EO81XNkPs&format=png&color=000000" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-            <p>{{ Auth::user()->name }}</p>
-            <a href="#"><i class="fa fa-circle text-success"></i> {{ Auth::user()->email }}</a>
-        </div>
-    </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
         <li class="{{ request()->is('/dashboard') ? 'active' : '' }}">
@@ -36,7 +26,7 @@
             </a>
         </li>
         <li class="{{ request()->is('experience') ? 'active' : '' }}">
-            <a href="#">
+            <a href="{{ route('experience.index') }}">
                 <i class="fa fa-suitcase"></i>
                 <span>Experience</span>
             </a>
@@ -49,9 +39,9 @@
             </a>
         </li>
         <li class="{{ request()->is('contact') ? 'active' : '' }}">
-            <a href="#">
+            <a href="#" onclick="alert('Coming soon!')">
                 <i class="fa fa-phone"></i>
-                <span>Kontak & Media Sosial</span>
+                <span>Dokumentasi</span>
             </a>
         </li>
     </ul>

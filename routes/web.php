@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
-use App\Models\CategorySkill;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,17 +29,22 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    // user-profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // route-resource
     Route::resource('/skill', SkillController::class);
 
+    // category
     Route::get('/category/print-pdf', [CategoryController::class, 'printPDF'])->name('category.printPDF');
     Route::resource('/category', CategoryController::class);
 
+    // project
     Route::resource('/project', ProjectController::class);
+
+    // experience
+    Route::resource('/experience', ExperienceController::class);
 });
 
 require __DIR__.'/auth.php';
