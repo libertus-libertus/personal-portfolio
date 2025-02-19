@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Experience;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ExperienceController extends Controller
 {
@@ -22,7 +24,8 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        return view('experience.create');
+        $skills = Skill::all(); // Ambil semua skill dari database
+        return view('experience.create', compact('skills'));
     }
 
     /**
@@ -30,41 +33,50 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'position' => 'required|max:255',
-                'company' => 'required|max:255',
-                'employment_type' => 'required|max:255',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date|after_or_equal:start_date',
-                'location' => 'required|string',
-                'description' => 'required|string',
-            ],
-            [
-                'position.required' => 'Posisinya sebagainya apa?',
-                'company.required' => 'Nama perusahaannya sebelumnya',
-                'employment_type.required' => 'WFH (Work From Home) atau Di kantor?',
-                'start_date.required' => 'Tanggal mulai bekerja harus diisi.',
-                'end_date.required' => 'Tanggal selesai bekerja harus diisi.',
-                'end_date.after_or_equal' => 'Tanggal selesai tidak boleh lebih awal dari tanggal mulai.',
-                'location.required' => 'Lokasi perusahaan tempat bekerja',
-                'description.required' => 'Deskripsi pekerjaanya tidak boleh kosong',
-            ]
-        );
-
-        Experience::create([
-            'user_id' => Auth::id(),
-            'position' => $request->position,
-            'company' => $request->company,
-            'employment_type' => $request->employment_type,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'location' => $request->location,
-            'description' => $request->description
+        // dd($request->all());
+        $request->validate([
+            'position' => 'required|max:255',
+            'company' => 'required|max:255',
+            'employment_type' => 'required|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'location' => 'required|string',
+            'description' => 'required|string',
+            'skills' => 'required|array',
+            'skills.*' => 'exists:skills,id',
         ]);
 
-        return redirect()->route('experience.index')
-            ->with('success', 'Pengalaman kerja berhasil ditambahkan!');
+        try {
+            // Mulai transaksi database
+            DB::beginTransaction();
+
+            // Simpan data pengalaman kerja
+            $experience = Experience::create([
+                'user_id' => Auth::id(),
+                'position' => $request->position,
+                'company' => $request->company,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'location' => $request->location,
+                'employment_type' => $request->employment_type,
+                'description' => $request->description,
+            ]);
+
+            // Pastikan skills ada sebelum menyimpan ke pivot table
+            if ($request->has('skills') && is_array($request->skills)) {
+                $experience->skills()->sync($request->skills);
+            }
+
+            // Commit transaksi jika berhasil
+            DB::commit();
+
+            return redirect()->route('experience.index')->with('success', 'Pengalaman kerja berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            // Rollback transaksi jika ada error
+            DB::rollback();
+
+            return back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -72,7 +84,8 @@ class ExperienceController extends Controller
      */
     public function edit(Experience $experience)
     {
-        return view('experience.edit', compact('experience'));
+        $skills = Skill::all(); // Ambil semua skill dari database
+        return view('experience.edit', compact('experience', 'skills'));
     }
 
     /**
@@ -80,32 +93,28 @@ class ExperienceController extends Controller
      */
     public function update(Request $request, Experience $experience)
     {
-        $request->validate(
-            [
-                'position' => 'required|max:255',
-                'company' => 'required|max:255',
-                'employment_type' => 'required|max:255',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date|after_or_equal:start_date',
-                'location' => 'required|string',
-                'description' => 'required|string',
-            ],
-            [
-                'position.required' => 'Posisinya sebagainya apa?',
-                'company.required' => 'Nama perusahaannya sebelumnya',
-                'employment_type.required' => 'WFH (Work From Home) atau Di kantor?',
-                'start_date.required' => 'Tanggal mulai bekerja harus diisi.',
-                'end_date.required' => 'Tanggal selesai bekerja harus diisi.',
-                'end_date.after_or_equal' => 'Tanggal selesai tidak boleh lebih awal dari tanggal mulai.',
-                'location.required' => 'Lokasi perusahaan tempat bekerja',
-                'description.required' => 'Deskripsi pekerjaanya tidak boleh kosong',
-            ]
-        );
+        $request->validate([
+            'position' => 'required|max:255',
+            'company' => 'required|max:255',
+            'employment_type' => 'required|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'location' => 'required|string',
+            'description' => 'required|string',
+            'skills' => 'required|array',
+            'skills.*' => 'exists:skills,id',
+        ]);
 
-        $experience->update($request->all());
+        $experience->update($request->except(['skills']));
+
+        if ($request->has('skills')) {
+            $experience->skills()->sync($request->skills);
+        }
+
         return redirect()->route('experience.index')
-            ->with('success', 'Pengalaman kerja berhasil diperbaharui!');
+            ->with('success', 'Pengalaman kerja berhasil diperbarui!');
     }
+
 
     /**
      * Remove the specified resource from storage.

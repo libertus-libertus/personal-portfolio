@@ -17,17 +17,6 @@ Ubah Project &mdash; <strong>{{ $project->title }}</strong>
                     <h3 class="box-title">Ubah proyek {{ $project->title }}</h3>
                 </div>
                 <div class="box-body">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
                     <form action="{{ route('project.update', $project->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('patch')

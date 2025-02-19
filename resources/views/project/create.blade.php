@@ -12,17 +12,6 @@
                     <h3 class="box-title">Tambah proyek baru</h3>
                 </div>
                 <div class="box-body">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
                     <form action="{{ route('project.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 

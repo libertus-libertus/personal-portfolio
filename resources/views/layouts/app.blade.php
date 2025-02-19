@@ -71,9 +71,9 @@
     <!-- ChartJS -->
     <script src="{{ asset('BE/bower_components/Chart.js/Chart.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    {{-- <script src="{{ asset('BE/dist/js/pages/dashboard2.js') }}"></script> --}}
+    <script src="{{ asset('BE/dist/js/pages/dashboard2.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{ asset('BE/dist/js/demo.js') }}"></script> --}}
+    <script src="{{ asset('BE/dist/js/demo.js') }}"></script>
     @stack('js')
 </body>
 
