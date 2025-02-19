@@ -23,7 +23,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        $skills = Skill::all(); // Ambil semua skill dari database
+        return view('project.create', compact('skills'));
     }
 
     /**
@@ -39,7 +40,9 @@ class ProjectController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'description' => 'required|string',
             'github_link' => 'required|url',
-            'live_link' => 'nullable|url'
+            'live_link' => 'nullable|url',
+            'skills' => 'required|array',
+            'skills.*' => 'exists:skills,id',
         ], [
             'title.required' => 'Judul proyek harus diisi.',
             'role.required' => 'Posisi proyek harus diisi.',
@@ -53,7 +56,9 @@ class ProjectController extends Controller
             'description.required' => 'Deskripsi proyek harus diisi.',
             'github_link.required' => 'Link GitHub proyek harus diisi.',
             'github_link.url' => 'Format link GitHub tidak valid.',
-            'live_link.url' => 'Format link hosting tidak valid.'
+            'live_link.url' => 'Format link hosting tidak valid.',
+            'skills.required' => 'Minimal satu skill harus dipilih.',
+            'skills.*.exists' => 'Skill yang dipilih tidak valid.',
         ]);
 
         $project_imageName = null;
@@ -63,7 +68,7 @@ class ProjectController extends Controller
             $image->move(public_path('images/projects'), $project_imageName);
         }
 
-        Project::create([
+        $project = Project::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
             'role' => $request->role,
@@ -75,6 +80,11 @@ class ProjectController extends Controller
             'live_link' => $request->live_link
         ]);
 
+        // Pastikan skills ada sebelum menyimpan ke pivot table
+        if ($request->has('skills') && is_array($request->skills)) {
+            $project->skills()->sync($request->skills);
+        }
+
         return redirect()->route('project.index')->with('success', 'Proyek berhasil ditambahkan!');
     }
 
@@ -83,7 +93,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('project.edit', compact('project'));
+        $skills = Skill::all(); // Ambil semua skill dari database
+        return view('project.edit', compact('project', 'skills'));
     }
 
     /**
@@ -99,7 +110,9 @@ class ProjectController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'description' => 'required|string',
             'github_link' => 'required|url',
-            'live_link' => 'nullable|url'
+            'live_link' => 'nullable|url',
+            'skills' => 'required|array',
+            'skills.*' => 'exists:skills,id',
         ], [
             'title.required' => 'Judul proyek harus diisi.',
             'role.required' => 'Posisi proyek harus diisi.',
@@ -109,6 +122,8 @@ class ProjectController extends Controller
             'description.required' => 'Deskripsi proyek harus diisi.',
             'github_link.required' => 'Link GitHub proyek harus diisi.',
             'github_link.url' => 'Format link GitHub tidak valid.',
+            'skills.required' => 'Minimal satu skill harus dipilih.',
+            'skills.*.exists' => 'Skill yang dipilih tidak valid.',
         ]);
 
         $project_imageName = $project->image;
@@ -132,6 +147,11 @@ class ProjectController extends Controller
             'github_link' => $request->github_link,
             'live_link' => $request->live_link
         ]);
+
+        // Memperbarui skills yang terkait dengan proyek
+        if ($request->has('skills') && is_array($request->skills)) {
+            $project->skills()->sync($request->skills);
+        }
 
         return redirect()->route('project.index')
             ->with('success', 'Proyek berhasil diperbaharui!');

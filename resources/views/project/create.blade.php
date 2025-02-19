@@ -15,6 +15,8 @@
                     <form action="{{ route('project.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
+                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -55,6 +57,19 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+
+                        {{-- multiple-select2 --}}
+                        <div class="form-group">
+                            <label for="skills">Pilih Skill</label>
+                            <select name="skills[]" id="skills" class="form-control select2" multiple="multiple" data-placeholder="Pilih skill yang digunakan" style="width: 100%;">
+                                @foreach ($skills as $skill)
+                                    <option value="{{ $skill->id }}">{{ $skill->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('skills')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -109,3 +124,16 @@
     </div>
 </section>
 @endsection
+
+@push('js')
+    <!-- Select2 -->
+<script src="{{ asset('BE/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+        // CKEDITOR.replace('description');
+    });
+</script>
+@endpush

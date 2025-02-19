@@ -8,6 +8,11 @@
 Ubah Project &mdash; <strong>{{ $project->title }}</strong>
 @endsection
 
+@push('css')
+<!-- Select2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css">
+@endpush
+
 @section('content')
 <section class="content">
     <div class="row">
@@ -20,6 +25,8 @@ Ubah Project &mdash; <strong>{{ $project->title }}</strong>
                     <form action="{{ route('project.update', $project->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
+
+                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                         <div class="row">
                             <div class="col-md-6">
@@ -61,6 +68,21 @@ Ubah Project &mdash; <strong>{{ $project->title }}</strong>
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Select2 Multiple Skills -->
+                        <div class="form-group">
+                            <label for="skills">Pilih Skill</label>
+                            <select name="skills[]" id="skills" class="form-control select2" multiple="multiple" data-placeholder="Pilih skill yang digunakan" style="width: 100%;">
+                                @foreach ($skills as $skill)
+                                    <option value="{{ $skill->id }}" {{ in_array($skill->id, $project->skills->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                        {{ $skill->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('skills')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -118,3 +140,23 @@ Ubah Project &mdash; <strong>{{ $project->title }}</strong>
     </div>
 </section>
 @endsection
+
+
+@push('js')
+<!-- Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+
+        // Handle Masih Bekerja
+        $('#still_working').change(function() {
+            if ($(this).is(':checked')) {
+                $('#end_date').prop('disabled', true).val('');
+            } else {
+                $('#end_date').prop('disabled', false);
+            }
+        });
+    });
+</script>
+@endpush
