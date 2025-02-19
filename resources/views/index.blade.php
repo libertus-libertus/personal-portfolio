@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libertus &mdash; Backend Developer</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=34886&format=png&color=000000" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -43,22 +44,8 @@
             <!-- About Section -->
             <section id="about" class="section fade-in">
                 <h2>About</h2>
-                <p>
-                    Sebagai backend developer yang dengan pengalaman lebih dari dua tahun, menguasai
-                    PHP, Laravel, dan Vue.js untuk membangun aplikasi web yang modern, scalable, dan berpusat pada
-                    pengguna dan MySQL sebagai tempat pengelolaan databasenya. Keahlian saya mencakup perancangan
-                    antarmuka intuitif, optimasi kinerja backend, serta penerapan arsitektur sistem yang kokoh untuk
-                    memenuhi beragam kebutuhan klien. Saya memiliki passion dalam memecahkan tantangan kompleks dan
-                    berkembang di lingkungan yang dinamis, selalu membawa ide inovatif serta komitmen terhadap
-                    keunggulan dalam setiap proyek. Siap mengubah ide menjadi solusi digital yang berdampak.
-                </p>
-                <p>
-                    Selain itu, saya berpengalaman dalam mengintegrasikan API, mengelola database secara efisien, serta
-                    menerapkan praktik terbaik guna memastikan stabilitas dan performa aplikasi. Dengan
-                    perhatian pada detail dan fokus pada kualitas, saya berupaya menghadirkan solusi yang tidak hanya
-                    fungsional, tetapi juga scalable dan mudah dipelihara. Saya percaya bahwa kolaborasi yang solid dan
-                    komunikasi yang efektif adalah kunci dalam membangun produk digital yang sukses.
-                </p>
+                {!! $user->bio !!}
+
                 <a href="#projects" class="btn-get-started">Get Started</a>
             </section>
 
@@ -66,31 +53,29 @@
             <section id="experience" class="section fade-in">
                 <h2>Experience</h2>
 
+                @foreach ($experiences as $experience)
                 <div class="experience-item">
-                    <h3>Full Stack Developer</h3>
-                    <p class="company">PT. Sinergi Mega Indah · Full-time</p>
-                    <p class="date-location">Mar 2022 - Feb 2024 · 2 yrs | Jakarta, Indonesia · On-site</p>
+                    <h3>{{ $experience->position }}</h3>
+                    <p class="company">{{ $experience->company }} · {{ $experience->employment_type }}</p>
+                    <p class="date-location">
+                        {{ \Carbon\Carbon::parse($experience->start_date)->format('M Y') }} -
+                        {{ $experience->end_date ? \Carbon\Carbon::parse($experience->end_date)->format('M Y') : 'Ongoing' }} |
+                        {{ $experience->location }} · On-site
+                    </p>
 
                     <ul class="experience-details">
-                        <li>Menerjemahkan desain UI/UX menjadi kode HTML, CSS, JavaScript, dan Bootstrap yang responsif
-                            dan interaktif.</li>
-                        <li>Memastikan konsistensi UI di berbagai platform dan perangkat.</li>
-                        <li>Menyelesaikan masalah pengguna terkait antarmuka dan fungsionalitas.</li>
-                        <li>Menerapkan animasi dan efek visual untuk meningkatkan interaktivitas dan daya tarik.</li>
-                        <li>Berkomunikasi dengan tim backend untuk memastikan konsistensi antara front-end dan backend.
-                        </li>
-                        <li>Bekerja dengan desainer UI/UX untuk menerapkan desain dan memastikan konsistensi visual.
-                        </li>
-                        <li>Melakukan troubleshooting dan pemeliharaan rutin pada kode front-end.</li>
-                        <li>Mendokumentasikan kode dan proses pengembangan untuk kemudahan perawatan dan kolaborasi tim.
-                        </li>
+                        {!! $experience->description !!}
                     </ul>
-                    <p class="tech-stack">💻 <strong>Laravel, MySQL, Bootstrap, Git/Github, VS Code</strong></p>
+                    <p class="tech-stack">
+                        💻 {{ $experience->skills->pluck('name')->implode(', ') }}
+                    </p>
                 </div>
+                @endforeach
 
                 <!-- Load More Button -->
                 <div class="load-more-container">
-                    <a href="https://drive.google.com/file/d/1MoNQ7ZFzK4gvpPZcA3neYDLj3zrBdGbJ/view?usp=sharing" target="_blank" class="load-more-button">
+                    <a href="https://drive.google.com/file/d/1MoNQ7ZFzK4gvpPZcA3neYDLj3zrBdGbJ/view?usp=sharing"
+                        target="_blank" class="load-more-button">
                         View Full Resume
                     </a>
                 </div>
@@ -100,43 +85,29 @@
             <section id="projects" class="section fade-in">
                 <h2>Projects</h2>
 
+                @foreach ($projects as $project)
                 <div class="project-item">
-                    <h3>E-Commerce Website</h3>
-                    <p class="company">Personal Project · Full-stack</p>
-                    <p class="date-location">Jan 2024 - Ongoing</p>
+                    <h3>{{ $project->title }}</h3>
+                    <p class="company">Personal Project &mdash; {{ $project->role }}</p>
+                    <p class="date-location">
+                        {{ \Carbon\Carbon::parse($project->start_date)->format('M Y') }} -
+                        {{ $project->end_date ? \Carbon\Carbon::parse($project->end_date)->format('M Y') : 'Ongoing' }}
+                    </p>
 
-                    <div class="project-details">
-                        <span>Membuat platform e-commerce dengan Laravel dan Vue.js. Integrasi sistem pembayaran
-                            menggunakan Midtrans API. Optimasi performa backend dan database MySQL. Mengimplementasikan
-                            autentikasi pengguna menggunakan Laravel Breeze.</span>
+                    <div class="project-details" style="text-align: justify">
+                        <span>{!! $project->description !!}</span>
                     </div>
 
-                    <p class="tech-stack">💻 Laravel, Vue.js, MySQL & TailwindCSS</p>
+                    <p class="tech-stack">
+                        💻 {{ $project->skills->pluck('name')->implode(', ') }}
+                    </p>
 
                     <!-- Link GitHub -->
-                    <a href="https://github.com/yourusername/ecommerce-project" target="_blank" class="github-link">
+                    <a href="{{ $project->github_link }}" target="_blank" class="github-link">
                         🔗 View on GitHub
                     </a>
                 </div>
-
-                <div class="project-item">
-                    <h3>Task Management App</h3>
-                    <p class="company">Freelance Project · Full-stack</p>
-                    <p class="date-location">Sep 2023 - Dec 2023</p>
-
-                    <div class="project-details">
-                        <span>Mengembangkan aplikasi manajemen tugas berbasis web Fitur CRUD tugas, reminder, dan
-                            kolaborasi tim. Memanfaatkan Firebase untuk notifikasi real-time. Deploy menggunakan Vercel
-                            dan AWS RDS.</span>
-                    </div>
-
-                    <p class="tech-stack">💻 React.js, Node.js, Firebase, AWS RDS</p>
-
-                    <!-- Link GitHub -->
-                    <a href="https://github.com/yourusername/task-management-app" target="_blank" class="github-link">
-                        🔗 View on GitHub
-                    </a>
-                </div>
+                @endforeach
 
                 <!-- Load More Button -->
                 <div class="load-more-container">
@@ -149,8 +120,10 @@
             <!-- Tools Section -->
             <section id="tools" class="section fade-in">
                 <h2>My Tools</h2>
-                <p>Saya menggunakan berbagai teknologi modern untuk membangun aplikasi web yang scalable, responsif, dan efisien.
-                    Dengan keahlian dalam frontend dan backend development, saya memastikan pengalaman pengguna yang optimal dan performa sistem yang handal.</p>
+                <p>Saya menggunakan berbagai teknologi modern untuk membangun aplikasi web yang scalable, responsif, dan
+                    efisien.
+                    Dengan keahlian dalam frontend dan backend development, saya memastikan pengalaman pengguna yang
+                    optimal dan performa sistem yang handal.</p>
 
                 <!-- List untuk Frontend dan Backend dengan Deskripsi -->
                 <h3>Frontend Tools</h3>
@@ -197,7 +170,8 @@
                                 data-color="https://img.icons8.com/officel/60/000000/php-logo.png" alt="PHP">
                         </div>
                         <div class="tools-item">
-                            <img class="icon" src="https://img.icons8.com/?size=100&id=UG5EO81XNkPs&format=png&color=000000"
+                            <img class="icon"
+                                src="https://img.icons8.com/?size=100&id=UG5EO81XNkPs&format=png&color=000000"
                                 data-color="https://img.icons8.com/?size=60&id=UG5EO81XNkPs&format=png" alt="Laravel">
                         </div>
                         <div class="tools-item">
@@ -212,12 +186,14 @@
                         <div class="tools-item">
                             <img class="icon"
                                 src="https://img.icons8.com/?size=100&id=xBKl2pdJg5kk&format=png&color=000000"
-                                data-color="https://img.icons8.com/?size=100&id=20906&format=png&color=000000" alt="GitHub">
+                                data-color="https://img.icons8.com/?size=100&id=20906&format=png&color=000000"
+                                alt="GitHub">
                         </div>
                         <div class="tools-item">
                             <img class="icon"
                                 src="https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=000000"
-                                data-color="https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=000000" alt="VS Code">
+                                data-color="https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=000000"
+                                alt="VS Code">
                         </div>
                     </div>
                 </div>
@@ -229,13 +205,21 @@
                 <div class="row">
                     <div class="col-md-5">
                         <h5>Contact</h5>
-                        <span><i class="fas fa-envelope"></i> libert.jobs@gmail.com</span><br>
-                        <span><i class="fas fa-map-marker-alt"></i> Mentawai, Indonesia</span><br>
-                        <span><a href="" class="text-decoration-none text-white"><i class="fas fa-phone-square-alt"></i> +62 813-4611-1649</a></span>
+                        <span><i class="fas fa-envelope"></i> {{ $user->email }}</span><br>
+                        <span><i class="fas fa-map-marker-alt"></i> {{ $user->location }}</span><br>
+                        <span>
+                            <a href="https://wa.me/62{{ ltrim(str_replace(['+', ' ', '-'], '', $user->phone_number), '0') }}"
+                               class="text-decoration-none text-white"
+                               target="_blank">
+                                <i class="fas fa-phone-square-alt"></i> {{ $user->phone_number ?? 'Phone not set' }}
+                            </a>
+                        </span>
+
                     </div>
                     <div class="col-md-7">
                         <h5>Follow Me</h5>
-                        <span>&copy; 2025 Designed by Libertus Sabebeget. All rights reserved. Open for flexible working (Work
+                        <span>&copy; 2025 Designed by Libertus Sabebeget. All rights reserved. Open for flexible working
+                            (Work
                             From Home).</span>
                     </div>
                 </div>

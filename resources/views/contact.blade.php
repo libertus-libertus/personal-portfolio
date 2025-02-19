@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact &mdash; Libertus Lin</title>
+    <title>Terhubung dengan Libertus Lin</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=34886&format=png&color=000000" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -28,10 +29,14 @@
                 <a href="{{ route('contact') }}">Contact</a>
             </nav>
             <div class="social-icons" style="margin-top: 2.5rem;">
-                <a href="https://github.com/libertus-libertus" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/libertus/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/growth_with_lin/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@libertus-thecode" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://github.com/libertus-libertus"
+                    target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/libertus/"
+                    target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/growth_with_lin/"
+                    target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@libertus-thecode"
+                    target="_blank"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
 
@@ -68,9 +73,15 @@
                 <div class="row">
                     <div class="col-md-5">
                         <h5>Contact</h5>
-                        <span><i class="fas fa-envelope"></i> libert.jobs@gmail.com</span><br>
-                        <span><i class="fas fa-map-marker-alt"></i> Mentawai, Indonesia</span><br>
-                        <span><a href="" class="text-decoration-none text-white"><i class="fas fa-phone-square-alt"></i> +62 813-4611-1649</a></span>
+                        <span><i class="fas fa-envelope"></i> {{ $user->email }}</span><br>
+                        <span><i class="fas fa-map-marker-alt"></i> {{ $user->location ?? 'Location not set' }}</span><br>
+                        <span>
+                            <a href="https://wa.me/62{{ ltrim(str_replace(['+', ' ', '-'], '', $user->phone_number), '0') }}"
+                               class="text-decoration-none text-white"
+                               target="_blank">
+                                <i class="fas fa-phone-square-alt"></i> {{ $user->phone_number ?? 'Phone not set' }}
+                            </a>
+                        </span>
                     </div>
                     <div class="col-md-7">
                         <h5>Follow Me</h5>

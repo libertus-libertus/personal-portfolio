@@ -23,7 +23,7 @@ class Skill extends Model
     // Relasi ke Project (Many-to-Many)
     public function projects()
     {
-        return $this->belongsToMany(Project::class, 'project_skills');
+        return $this->belongsToMany(Project::class, 'project_skills', 'project_id', 'skill_id');
     }
 
     // Relasi ke Experience (Many-to-Many)

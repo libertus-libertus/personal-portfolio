@@ -8,6 +8,11 @@
 Ubah Informasi Profil Anda <strong>{{ Auth::user()->name }}</strong>
 @endsection
 
+@push('css')
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="{{ asset('BE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+@endpush
+
 @section('content')
 <section class="content">
 
@@ -29,8 +34,6 @@ Ubah Informasi Profil Anda <strong>{{ Auth::user()->name }}</strong>
                     <p class="text-muted text-center">{{ Auth::user()->position }}</p>
                 </div>
             </div>
-
-            {{-- animasi yang daat= --}}
 
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -98,11 +101,15 @@ Ubah Informasi Profil Anda <strong>{{ Auth::user()->name }}</strong>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label for="bio">Biografi / Tentang Diri</label>
-                                <textarea class="form-control" name="bio" id="bio" rows="2"
-                                    placeholder="Isikan tentang diri kamu disini!">{{ $user->bio }}</textarea>
+                                <label for="bio">Tentang Saya</label>
+                                <textarea name="bio" class="form-control" id="bio" rows="3">{{ old('bio', $user->bio) }}</textarea>
+                                @error('bio')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
+
                             <div class="form-group">
                                 <label for="avatar">Unggah Foto</label>
                                 <input type="file" class="form-control" id="avatar" name="avatar">
@@ -151,3 +158,13 @@ Ubah Informasi Profil Anda <strong>{{ Auth::user()->name }}</strong>
 
 </section>
 @endsection
+
+@push('js')
+<!-- CK Editor -->
+<script src="{{ asset('BE/bower_components/ckeditor/ckeditor.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace('bio');
+    });
+</script>
+@endpush
