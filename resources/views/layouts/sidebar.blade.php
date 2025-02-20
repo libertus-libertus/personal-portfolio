@@ -39,7 +39,7 @@
             </a>
         </li>
         <li class="{{ request()->is('contact') ? 'active' : '' }}">
-            <a href="#" onclick="alert('Coming soon!')">
+            <a href="https://github.com/libertus-libertus/personal-portfolio" target="_blank">
                 <i class="fa fa-phone"></i>
                 <span>Dokumentasi</span>
             </a>

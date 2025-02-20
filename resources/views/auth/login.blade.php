@@ -42,10 +42,6 @@ Log In
         </div>
     </form>
 
-    <div style="margin-top: 15px" class="text-center">
-        Belum memiliki akun? <a href="{{ route('register') }}" class="text-center">Daftar dulu yuk!</a>
-    </div>
-
 </div>
 <!-- /.login-box-body -->
 @endsection
