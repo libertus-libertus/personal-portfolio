@@ -42,6 +42,7 @@ class ProfileController extends Controller
         }
 
         // Proses upload avatar
+        $avatar_imageName = $user->avatar;
         if ($request->hasFile('avatar')) {
             if ($user->avatar && file_exists(public_path('images/profile/'.$user->avatar))) {
                 unlink(public_path('images/profile/'.$user->avatar));
