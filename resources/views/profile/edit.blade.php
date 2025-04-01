@@ -97,7 +97,7 @@ Ubah Informasi Profil Anda <strong>{{ Auth::user()->name }}</strong>
                                     <div class="form-group">
                                         <label for="location">Lokasi</label>
                                         <input type="location" class="form-control" id="location" name="location"
-                                            placeholder="Isikan jabatan" value="{{ $user->location }}">
+                                            placeholder="Isikan lokasi" value="{{ $user->location }}">
                                     </div>
                                 </div>
                             </div>

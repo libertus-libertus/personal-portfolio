@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Libertus',
             'email' => 'libert.jobs@gmail.com',
             'phone_number' => '081346111649',
-            'password' => Hash::make('123')
+            'password' => Hash::make('Libertus@2o2n@')
         ]);
     }
 }

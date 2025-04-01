@@ -4,7 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Proyek &mdash; Libertus</title>
+    <title>Portfolio Projects - Libertus</title>
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Explore the portfolio of Libertus, a Full Stack Developer specializing in Laravel, PHP, JavaScript, and scalable web applications.">
+    <meta name="keywords" content="Portfolio, Libertus, Web Development, Laravel, PHP, Full Stack Developer, Software Engineer, Projects">
+    <meta name="author" content="Libertus">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta property="og:title" content="Portfolio Projects - Libertus">
+    <meta property="og:description" content="Check out the innovative web development projects by Libertus, a skilled Full Stack Developer.">
+    <meta property="og:image" content="https://yourwebsite.com/assets/libertus-projects.jpg">
+    <meta property="og:url" content="https://yourwebsite.com/portfolio">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=34886&format=png&color=000000" type="image/x-icon">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">

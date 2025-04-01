@@ -4,8 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terhubung dengan Libertus Lin</title>
+    <title>Contact Libertus - Get in Touch</title>
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Connect with Libertus, a Full Stack Developer specializing in Laravel, PHP, and web development. Reach out for collaborations, inquiries, or freelance opportunities.">
+    <meta name="keywords" content="Contact Libertus, Libertus, Web Developer Contact, Laravel Developer, Hire Developer, Freelance Developer, Get in Touch, Software Engineer">
+    <meta name="author" content="Libertus">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta property="og:title" content="Contact Libertus - Get in Touch">
+    <meta property="og:description" content="Looking for a skilled Full Stack Developer? Contact Libertus for collaboration, project inquiries, or freelance work.">
+    <meta property="og:image" content="https://yourwebsite.com/assets/libertus-profile.jpg">
+    <meta property="og:url" content="https://yourwebsite.com/contact">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=34886&format=png&color=000000" type="image/x-icon">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">

@@ -4,8 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libertus &mdash; Backend Developer</title>
+    <title>Libertus - Full Stack Developer & Laravel Expert</title>
+
+    <!-- Meta SEO -->
+    <meta name="description" content="Libertus is a passionate Full Stack Developer specializing in Laravel, PHP, and scalable web applications.">
+    <meta name="keywords" content="Libertus, Libertus, Full Stack Developer, Laravel Expert, Web Development, PHP, MySQL, JavaScript, Vue.js, Backend Development, Frontend Development">
+    <meta name="author" content="Libertus">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="distribution" content="global">
+    <meta property="og:title" content="Libertus - Full Stack Developer & Laravel Expert">
+    <meta property="og:description" content="Explore the expertise of Libertus, a skilled Full Stack Developer with a deep understanding of Laravel, PHP, and modern web technologies.">
+    <meta property="og:image" content="https://yourwebsite.com/assets/libertus-profile.jpg">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=34886&format=png&color=000000" type="image/x-icon">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
